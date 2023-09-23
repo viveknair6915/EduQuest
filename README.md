@@ -15,3 +15,16 @@
 <li>HTML</li>
 <li>CSS</li>
 <li>JavaScript</li>
+
+<h2>SnapShots of this Exciting New Journey</h2>
+
+![Word Scramble ss](https://github.com/viveknair6915/EduQuest/assets/114429172/1fe01fd9-9b14-4b62-a0d7-a39a346e505f)
+
+![Typing game ss](https://github.com/viveknair6915/EduQuest/assets/114429172/cd0fc1b9-a164-4db0-a6f6-84153f32bd91)
+
+![quiz ss](https://github.com/viveknair6915/EduQuest/assets/114429172/836fddbc-3ed4-49d4-b4b9-02056a15c995)
+
+![Memory game ss](https://github.com/viveknair6915/EduQuest/assets/114429172/7d883837-bb00-4f22-be19-8f258cd4a8c3)
+
+![Library ss](https://github.com/viveknair6915/EduQuest/assets/114429172/49a9205f-2e3c-4445-911f-5498be971259)
+
