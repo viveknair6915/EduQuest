@@ -2,14 +2,19 @@
 
 <h2>Explore, Learn and Grow</h2>
 
-<p>Embark on a Learning Odyssey: Offline & Online Adventures Await! Calling all young minds and explorers! Are you ready to uncover the wonders of the world while having a blast? Our website is your passport to a world of knowledge and adventure. We provide a treasure trove of printable resources, workbooks, and engaging activities designed to fuel your curiosity wherever your adventures take you. Whether you're a primary school explorer, a high school scholar, or a lifelong learner, there's something here for everyone.</p>
+<b>Embark on a Learning Odyssey</b><br>
+`Offline & Online Adventures Await! Calling all young minds and explorers!`<br>
+Our website is your passport to a world of knowledge and adventure. We provide a treasure trove of printable resources, workbooks, and engaging activities designed to fuel your curiosity wherever your adventures take you. Whether you're a primary school explorer, a high school scholar, or a lifelong learner, there's something here for everyone.<br>
+`Are you ready to uncover the wonders of the world while having a blast?`
 
 <h2>FEATURES:</h2>
-<li><b>Integrated chatbot "EduChat":</b> provides instant guidance and answers to all your quiries</li>
-<li><b>Translator Tool:</b>makes learning accessible in every language.</li>
-<li><b>Accessible Learning:</b>Offline content like pdfs and downloadable lectures so you never have to slow down your learning</li>
+<li><b>Integrated chatbot "EduChat":</b> Provides instant guidance and answers to all your queries</li>
+<li><b>Translator Tool:</b> Makes learning accessible in every language.</li>
+<li><b>Accessible Learning:</b> Offline content like pdfs and downloadable lectures so you never have to slow down your learning</li>
 <li><b>Text to Speech:</b> Going one step further in making learning accesible for everyone with our text to speech feature</li>
-<li><b>Immersive Learning:</b>Interactive games and quizes which makes learning an interesting experience</li>
+<li><b>Immersive Learning:</b> Interactive games and quizes which makes learning an interesting experience</li>
+<li><b>Roadmap:</b> To keep you on track whenever you find yourself straying from the path</li>
+<li><b>Stay Organised:</b> With our To Do list</li>
 
 <h2>Tech Stack</h2>
 <li>HTML</li>
@@ -27,4 +32,8 @@
 ![Memory game ss](https://github.com/viveknair6915/EduQuest/assets/114429172/7d883837-bb00-4f22-be19-8f258cd4a8c3)
 
 ![Library ss](https://github.com/viveknair6915/EduQuest/assets/114429172/49a9205f-2e3c-4445-911f-5498be971259)
+
+![Roadmap](https://github.com/viveknair6915/EduQuest/assets/114429172/d2a2284a-c794-448a-83a3-0da87eb57428)
+
+![todo list ss](https://github.com/viveknair6915/EduQuest/assets/114429172/6c80d24f-689a-4f60-88a3-aa49bdf63ee4)
 
