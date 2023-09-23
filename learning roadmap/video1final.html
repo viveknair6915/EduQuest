@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player & Text to PDF</title>
+    <link rel="stylesheet" type="text/CSS" href="video.css">
+</head>
+
+<body>
+    <div class="bg">
+        <div class="video-container">
+            <video class="video-player" controls>
+                <source src="Photosynthesis.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <p class="completed">✔️ Completed</p>
+        </div>
+        <div>
+            <textarea class="text-box" id="text-input" placeholder="Enter text..."></textarea>
+        </div>
+        <div>
+            <button class="download-button" id="download-button">Download as PDF</button>
+        </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.16.0/pdf-lib.js"></script>
+    <script>
+        const textInput = document.getElementById("text-input");
+        const downloadButton = document.getElementById("download-button");
+
+        downloadButton.addEventListener("click", async () => {
+            const pdfDoc = await PDFLib.PDFDocument.create();
+            const page = pdfDoc.addPage([400, 400]);
+            const { width, height } = page.getSize();
+            const helveticaFont = await pdfDoc.embedFont(PDFLib.StandardFonts.Helvetica);
+            const fontSize = 20;
+
+            const text = textInput.value || "No text entered.";
+            page.drawText(text, {
+                x: 50,
+                y: height - 50,
+                size: fontSize,
+                font: helveticaFont,
+                color: PDFLib.rgb(0, 0, 0),
+            });
+
+            const pdfBytes = await pdfDoc.save();
+            const blob = new Blob([pdfBytes], { type: "application/pdf" });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "text_to_pdf.pdf";
+            a.click();
+
+            URL.revokeObjectURL(url);
+        });
+    </script>
+</body>
+
+</html>
