@@ -1,0 +1,118 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    background-color: aliceblue;
+}
+
+.outerclass
+{
+    display: grid;
+    margin: 50px 100px 50px 100px;
+    width: 1300px;
+    height: 100vh;
+    box-shadow: 0px 0px 10px 2px #ccc;
+    grid-template-columns: 1fr 1fr;
+}
+
+.moving
+{
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background: #1D1E23;
+}
+
+h1 {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 600;
+    background-color:#1D1E23;
+}
+
+h1 span {
+    color: #BD53ED;
+    position: relative;
+    background-color: #1D1E23;
+}
+
+h1 span::before {
+    content: "";
+    height: 30px;
+    width: 2px;
+    position: absolute;
+    top: 50%;
+    right: -8px;
+    background: #BD53ED;
+    transform: translateY(-45%);
+    animation: blink 0.6s infinite;
+}
+
+h1 span.stop-blinking::before {
+    animation: none;
+}
+
+@keyframes blink {
+    50% { opacity: 0 }
+}
+
+
+form
+{
+    margin: 60px 40px 20px 40px;
+}
+
+form h1
+{
+    background-color:aliceblue;
+    color:#BD53ED;
+    margin: 0px 10px 30px 10px;
+    font-size:60px;
+}
+
+.inp
+{
+    display: block;
+    margin: 10px;
+    width: 90%;
+    height: 30px;
+    box-shadow: 0px 0px 10px 2px #ccc;
+    border: 0px;
+    background-color:'#E5CCFF';
+}
+
+button
+{
+    display: block;
+    width: 90%;
+    margin: 30px  10px 10px 10px;
+    padding: 10px 25px;
+    background-color:rgb(229,204,255);
+    cursor: pointer;
+    border: 0px;
+    box-shadow: 0px 0px 10px 2px #ccc;
+    font-size: 15px;
+}
+
+.login
+{
+    margin: 10px 40px 50px 40px;
+}
+
+#t1
+{
+    color:#8a37b0;
+}
+
+.logbut
+{
+    display: block;
+    width: 90%;
+    margin: 30px  10px 10px 10px;
+    padding: 10px 25px;
+    background-color:rgb(229,204,255);
+    cursor: pointer;
+    border: 0px;
+    box-shadow: 0px 0px 10px 2px #ccc;
+    font-size: 15px;
+}

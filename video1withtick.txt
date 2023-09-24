@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player & Text to PDF</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .video-container {
+            max-width: 800px;
+            text-align: center;
+        }
+        .video-player {
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+        }
+        .completed {
+            display: none;
+            color: green;
+        }
+        .text-box {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px;
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            resize: vertical;
+        }
+        .download-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .download-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <video class="video-player" controls>
+            <source src="Photosynthesis.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <p class="completed">✔️ Completed</p>
+    <textarea class="text-box" row="3" cols="25" id="text-input" placeholder="Enter text..." style="resize:none"></textarea>
+    <button class="download-button" id="download-button">Download as PDF</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.16.0/pdf-lib.js"></script>
+    <script>
+        const textInput = document.getElementById("text-input");
+        const downloadButton = document.getElementById("download-button");
+        const videoPlayer = document.querySelector(".video-player");
+        const completedMessage = document.querySelector(".completed");
+
+        videoPlayer.addEventListener("ended", () => {
+            completedMessage.style.display = "block";
+        });
+
+        downloadButton.addEventListener("click", async () => {
+            const pdfDoc = await PDFLib.PDFDocument.create();
+            let page = pdfDoc.addPage([400, 400]);
+            const { width, height } = page.getSize();
+            const helveticaFont = await pdfDoc.embedFont(PDFLib.StandardFonts.Helvetica);
+            const fontSize = 20;
+
+            const text = textInput.value || "No text entered.";
+
+            // Split the text into lines
+            const textLines = text.split("\n");
+            let yPosition = height - 50;
+
+            // Draw each line of text
+            for (const line of textLines) {
+                if (yPosition < 50) {
+                    // Start a new page if the space is insufficient
+                    page = pdfDoc.addPage([400, 400]);
+                    yPosition = height - 50;
+                }
+
+                // Check if the text fits within the current line width
+                const textWidth = helveticaFont.widthOfTextAtSize(line, fontSize);
+                if (textWidth > width - 100) {
+                    // If the text is too wide, insert a line break
+                    page.drawText(line.substring(0, line.length / 2), {
+                        x: 50,
+                        y: yPosition,
+                        size: fontSize,
+                        font: helveticaFont,
+                        color: PDFLib.rgb(0, 0, 0),
+                    });
+                    yPosition -= fontSize + 5; // Adjust vertical position
+                    page = pdfDoc.addPage([400, 400]); // Start a new page
+                    yPosition = height - 50;
+                    page.drawText(line.substring(line.length / 2), {
+                        x: 50,
+                        y: yPosition,
+                        size: fontSize,
+                        font: helveticaFont,
+                        color: PDFLib.rgb(0, 0, 0),
+                    });
+                } else {
+                    // Draw the entire line if it fits
+                    page.drawText(line, {
+                        x: 50,
+                        y: yPosition,
+                        size: fontSize,
+                        font: helveticaFont,
+                        color: PDFLib.rgb(0, 0, 0),
+                    });
+                }
+                yPosition -= fontSize + 5; // Adjust vertical position
+            }
+
+            const pdfBytes = await pdfDoc.save();
+            const blob = new Blob([pdfBytes], { type: "application/pdf" });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "text_to_pdf.pdf";
+            a.click();
+
+            URL.revokeObjectURL(url);
+        });
+    </script>
+</body>
+</html>

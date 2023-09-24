@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player & Notes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .video-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .video-player {
+            width: 100%;
+        }
+        .completed {
+            display: none;
+            color: green;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <video class="video-player" controls>
+            <source src="Photosynthesis.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <p class="completed">✔️ Completed</p>
+        <textarea id="notes" placeholder="Take notes here..."></textarea>
+        <a id="download-notes-link" style="display: none;">Download Notes</a>
+    </div>
+
+    <script>
+        const videoPlayer = document.querySelector('.video-player');
+        const completedMessage = document.querySelector('.completed');
+        const notesTextarea = document.getElementById('notes');
+        const downloadNotesLink = document.getElementById('download-notes-link');
+
+        videoPlayer.addEventListener('ended', () => {
+            // When the video ends, mark it as completed
+            completedMessage.style.display = 'block';
+        });
+
+        notesTextarea.addEventListener('input', () => {
+            // Show the download link when there are notes
+            if (notesTextarea.value.trim() !== '') {
+                downloadNotesLink.style.display = 'block';
+            } else {
+                downloadNotesLink.style.display = 'none';
+            }
+        });
+
+        downloadNotesLink.addEventListener('click', () => {
+            const notes = notesTextarea.value;
+            const blob = new Blob([notes], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'notes.txt';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        });
+    </script>
+</body>
+</html>
