@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/CSS" href="landingPage.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="nav">
+        </div>
+        <div class="bodyy">
+            <div class="content">
+                <div class="heading">
+                    <H1>EduQuest: <span></span></H1>
+                </div>
+                <br>
+                <div class="subcontent">
+                    <p>
+                        Embark on a Learning Odyssey: Offline & Online Adventures Await!
+
+                        Calling all young minds and explorers! Are you ready to uncover the wonders of the world while
+                        having a blast? Our website is your passport to a world of knowledge and adventure.
+                        We provide a treasure trove of printable resources, workbooks, and engaging activities designed
+                        to fuel your curiosity wherever your adventures take you.
+                        Whether you're a primary school explorer, a high school scholar, or a lifelong learner, there's
+                        something here for everyone.
+                    </p>
+                </div>
+            </div>
+            <div class="signupin">
+                <div>
+                    <span><a href="signup.html" target="_blank"><button class="signup">SIGN
+                                UP</button></a></span>
+                </div>
+                <div>
+                    <span><a href="login.html" target="_blank"><button class="signin">LOGIN
+                                IN</button></a></span>
+                </div>
+            </div>
+        </div>
+        <div class="info">
+            <div class="box1 box">
+                <div class="img1"></div>
+                <div class="con1">
+                    <p>
+                        Our integrated chatbot "EduChat" is here to provide instant guidance and answers to your
+                        quiries. Also our translator tool is at your service, breaking down barriers and making learning
+                        accessible in every tongue.
+                    </p>
+                </div>
+            </div>
+            <div class="box2 box">
+                <div class="img2"></div>
+
+                <div class="con2">
+                    It is like a treasure chest filled with interactive learning gems like RoadMap learning and quizzes
+                    that will ignite your curiosity, challenge your brain, and make studying an exciting quest.
+                </div>
+            </div>
+            <div class="box3 box">
+                <div class="img3"></div>
+                <div class="con3">
+                    With our offline materials, you can continue your educational journey even when the digital world is
+                    out of reach. But the adventure doesn't stop there! When you're back online, our virtual realm opens
+                    up a world of knowledge.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="quote">
+        <p>“Education is the most powerful weapon which you can use to change the world.”</p>
+        <p>~Nelson Mandela</p>
+    </div>
+
+    <footer>
+        <div class="footerKeDiv">
+            
+        <div class="footerKeContent">
+            <p style="padding:5px;font-size: xx-large;">FOR MORE INFORMATION</p>
+            <br><br>
+            <p style="padding:5px;font-size:x-large;">MAIL TO:</p>
+            <a href="mailto:example@gmail.com"><img src="gmail.jpg" height="50px" style="margin: 5px;"></a>
+            
+            <p style="margin-top:20px;font-size:xx-large;margin-bottom: 10px;margin-left: 5px;">Follow us on:</p>
+            
+            
+            <div class="socialLinks">
+                <a input="button" class="ll" name="insta" href="#"><img src="instagram.svg" height="30px"></a>
+                <a input="button" class="ll" name="fb" href="#"><img src="fb.svg" height="30px"></a>
+                <a input="button" class="ll" name="twitter" href="#"><img src="twit.svg" height="30px"></a>
+                <a input="button" class="ll" name="pin" href="#"><img src="pinterest.svg" height="30px"></a>
+                <a input="button" class="ll" name="linkedin" href="#"><img src="linkedin.svg" height="30px"></a>
+                <a input="button" class="ll" name="yt" href="#"><img src="yt.svg" height="30px"></a>
+            </div>
+        </div>
+        
+        <div class="chatboxandlang">
+            <div class="chatpot_l">
+                    <div id="chatbox-container">
+                        <div id="chatbox-header">Chatbot</div>
+                        <div id="chatbox"></div>
+                        <div style="display: flex; align-items: center;">
+                            <input type="text" id="userInput" placeholder="Type a question...">
+                            <button onclick="sendMessage()">Send</button>
+                        </div>
+                    </div>
+                    <div id="chatbot-icon" onclick="toggleChatbox()">
+                        <button class="button-54"><img src="pngwi.png" height="35px"><br>EDUCHAT</button>
+                    </div>
+            </div>
+            <div id="google_translate_element"></div>
+        </div>
+
+        </div>
+        
+
+    </footer>
+    <script>
+        const dynamicText = document.querySelector("h1 span");
+        const words = ["Explore", "Learn", "Roam", "Experience"];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        const typeEffect = () => {
+            const currentWord = words[wordIndex];
+            const currentChar = currentWord.substring(0, charIndex);
+            dynamicText.textContent = currentChar;
+            dynamicText.classList.add("stop-blinking");
+
+            if (!isDeleting && charIndex < currentWord.length) {
+                charIndex++;
+                setTimeout(typeEffect, 200);
+            } else if (isDeleting && charIndex > 0) {
+                charIndex--;
+                setTimeout(typeEffect, 100);
+            } else {
+                isDeleting = !isDeleting;
+                dynamicText.classList.remove("stop-blinking");
+                wordIndex = !isDeleting ? (wordIndex + 1) % words.length : wordIndex;
+                setTimeout(typeEffect, 1200);
+            }
+        }
+        typeEffect();
+
+        const knowledgeBase = {
+            "WHAT IS THE CAPITAL OF INDIA": "The capital of India is New Delhi.",
+            "TELL ME SOMETHING ABOUT EIFFEL TOWER": "The Eiffel Tower is a famous landmark in Paris, France.",
+            "HELLO HOW ARE YOU?": "I AM FINE HOW CAN I HELP YOU",
+            "CAN YOU TRANSLATE THE TEXT TO HINDI?": "YEAH SURE JUST CLICK ON SELECT LANGUAGE AT THE BOTTOM RIGHT CORNER AND SELECT THE LANGUAGE YOU WANT",
+            "HI":"Hi, EduChat is here to assist you",
+            "HOW MANY STATES ARE THERE IN INDIA": "There are 29 states and 8 union teritorries in India",
+            "WHO IS THE NATIONALANIMALOF INDIA": "National Bengal Tiger is the Natioinal Animal of India",
+            "WHO IS THE FATHER OF MATHS": "Archemidis is known as Father of Mathematics",
+            "HOW IS THE WEATHER TODAY": "The weather is awesome just like YOU.",
+        };
+
+        const chatbox = document.getElementById("chatbox");
+        const chatboxContainer = document.getElementById("chatbox-container");
+        const userInput = document.getElementById("userInput");
+
+        function displayUserMessage(message) {
+            chatbox.innerHTML += `<div class="user-message">${message}</div>`;
+        }
+
+        function displayChatbotMessage(message) {
+            chatbox.innerHTML += `<div class="chatbot-message">${message}</div>`;
+        }
+
+        function getChatbotResponse(userMessage) {
+            const keys = Object.keys(knowledgeBase);
+            for (const key of keys) {
+                if (userMessage.toLowerCase().includes(key.toLowerCase())) {
+                    return knowledgeBase[key];
+                }
+            }
+            return "I'm sorry, I don't have an answer to that question.";
+        }
+
+        function sendMessage() {
+            const userMessage = userInput.value;
+            displayUserMessage(userMessage);
+            userInput.value = "";
+
+            const chatbotResponse = getChatbotResponse(userMessage);
+            displayChatbotMessage(chatbotResponse);
+        }
+
+
+        function toggleChatbox() {
+            if (chatboxContainer.style.display === "inline") {
+                chatboxContainer.style.display = "none";
+
+            } else {
+                chatboxContainer.style.display = "inline";
+            }
+        }
+
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    </script>
+</body>
+</html>

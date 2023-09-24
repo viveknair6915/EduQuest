@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="port.css" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,400&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Raleway:700&display=swap" rel="stylesheet"/>
+    <style>
+      .goog-te-gadget {
+    
+        position: fixed;
+        bottom: 0;
+        left: 0%;
+        transform: translateX(0%);
+        width: auto;
+        height: 50px;
+        line-height: 15px;
+        line-width: 1000px;
+        background-color: #fff;
+        border: 0px solid #ccc;
+        border-radius: 0px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        padding: 0 10px;
+      }
+    </style>
+  </head>
+  <body>
+
+    
+
+    <nav id="navbar" class="nav">
+        <div class="left-nav-list">
+
+          <div id="chatbot-icon" onclick="toggleChatbox()">
+          <img src="edubotKaLogo.png" height="90px">
+          </div>
+          </br>
+          <div id="chatbox-container">
+            <div id="chatbox-header"><b>Chatbot</b></div>
+            <div id="chatbox"></div>
+            <div style="display: flex; align-items: center;">
+              <input type="text" id="userInput" placeholder="Type a question...">
+              <button onclick="sendMessage()">Send</button>
+            </div>
+          </div>
+
+          <div class="todoKaIcon">
+            <a href="todo.html"><img src="todolisticonimage-removebg-preview.png" alt="TO-DO" id="todo-icon"></a>
+          </div>
+
+        </div>
+
+        <div class="right-nav-list">
+          <a href="LandingPage.html">Logout</a>
+          <a href="#projects">Activities</a>
+          <a href="#contact">Contacts</a>
+        </div>
+
+    </nav>
+
+    <section id="welcome-section" class="welcome-section">
+      <h1>EduQuest</h1>
+      <p><u>Explore</u> <u>Learn</u> <u>Experience</u></p>
+    </section>
+    <section id="projects" class="projects-section">
+      <h2 class="projects-section-header">Interesting Activities</h2>
+      <div class="projects-grid">
+        <a href="main_roadmap.html" target="_blank" class="project project-tile">
+          <img class="project-image" src="tree.jpg" alt="project" />
+          <p class="project-title"><span class="code">&lt;</span>Learning Career<span class="code">&#47;&gt;</span></p>
+        </a>
+        <a href="gameportal.html" target="_blank" class="project project-tile">
+          <img class="project-image" src="brain.jpg"  alt="project"/>
+          <p class="project-title"><span class="code">&lt;</span>Memory Game<span class="code">&#47;&gt;</span></p>
+        </a>
+        <a href="library.html" target="_blank" class="project project-tile">
+          <img class="project-image" src="library.jpg" alt="project"/>
+          <p class="project-title">
+            <span class="code">&lt;</span>
+            Library
+            <span class="code">&#47;&gt;</span>
+          </p>
+        </a>
+      </div>
+    </section>
+    <section id="contact" class="contact-section">
+      <div class="contact-section-header">
+        <h2>Let's Learn Together...</h2>
+        <p>Want to learn more?</p>
+      </div>
+      <div class="contact-links">
+        <a target="_blank" class="btn contact-details"> Facebook</a>
+        <a id="profile-link" href="https://github.com/viveknair6915/BIT-BUSTERS" target="_blank"
+          class="btn contact-details"> GitHub</a>
+        <a target="_blank"
+          class="btn contact-details"> Twitter</a>
+        <a  class="btn contact-details"> Send a mail</a>
+      </div>
+    </section>
+    <footer>
+      <p>Created by @BIT BUSTERS</p>
+    </footer>
+    <div id="google_translate_element"></div>
+    <script>
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+          pageLanguage: 'en',
+          layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+        }, 'google_translate_element');
+      }
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+  const knowledgeBase = {
+    "WHAT IS THE CAPITAL OF INDIA": "The capital of India is New Delhi.",
+    "TELL ME SOMETHING ABOUT EIFFEL TOWER": "The Eiffel Tower is a famous landmark in Paris, France.",
+    "HELLO HOW ARE YOU?": "I AM FINE HOW CAN I HELP YOU",
+    "CAN YOU TRANSLATE THE TEXT TO HINDI?": "YEAH SURE JUST CLICK ON SELECT LANGUAGE AT THE BOTTOM RIGHT CORNER AND SELECT THE LANGUAGE YOU WANT",
+    "HI": "Hi, EduChat is here to assist you",
+    "HOW MANY STATES ARE THERE IN INDIA": "There are 29 states and 8 union teritorries in India",
+    "WHO IS THE NATIONALANIMALOF INDIA": "National Bengal Tiger is the Natioinal Animal of India",
+    "WHO IS THE FATHER OF MATHS": "Archemidis is known as Father of Mathematics",
+    "HOW IS THE WEATHER TODAY": "The weather is awesome just like YOU.",
+  };
+
+  const chatbox = document.getElementById("chatbox");
+  const chatboxContainer = document.getElementById("chatbox-container");
+  const userInput = document.getElementById("userInput");
+
+  function displayUserMessage(message) {
+    chatbox.innerHTML += `<div class="user-message" style="float:right;display: block; background-color:yellow; opacity:0.65 ; color: blue"><br>${message}</div>`;
+  }
+
+  function displayChatbotMessage(message) {
+    chatbox.innerHTML += `<div class="chatbot-message" style="display:block; float:left; background-color:pink; opacity:0.65 ; color: black">${message}<br></div>`;
+  }
+
+  function getChatbotResponse(userMessage) {
+    const keys = Object.keys(knowledgeBase);
+    for (const key of keys) {
+      if (userMessage.toLowerCase().includes(key.toLowerCase())) {
+        return knowledgeBase[key];
+      }
+    }
+    return "I'm sorry, I don't have an answer to that question.";
+  }
+
+  function sendMessage() {
+    const userMessage = userInput.value;
+    displayUserMessage(userMessage);
+    userInput.value = "";
+
+    const chatbotResponse = getChatbotResponse(userMessage);
+    displayChatbotMessage(chatbotResponse);
+  }
+
+
+  function toggleChatbox() {
+    if (chatboxContainer.style.display === "inline") {
+      chatboxContainer.style.display = "none";
+    } 
+    else {
+      chatboxContainer.style.display = "inline";
+    }
+  }
+
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+  }
+</script>
+
+  </body>
+</html>
