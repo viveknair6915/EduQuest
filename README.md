@@ -39,5 +39,7 @@ Our website is your passport to a world of knowledge and adventure. We provide a
 
 ![Roadmap](https://github.com/viveknair6915/EduQuest/assets/114429172/d2a2284a-c794-448a-83a3-0da87eb57428)
 
+![textToSpeech](https://github.com/viveknair6915/EduQuest/assets/114554523/00cdb456-0474-42c8-8963-ca00e1e4b22f)
+
 ![todo list ss](https://github.com/viveknair6915/EduQuest/assets/114429172/6c80d24f-689a-4f60-88a3-aa49bdf63ee4)
 
