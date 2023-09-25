@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel='stylesheet' type='text/css' media='screen' href='signup.css'>
+</head>
+<body>
+    <div class="outerclass">
+        <div class="moving">
+            <h1>EduQuest: <span></span></h1>
+            <script>
+                const dynamicText = document.querySelector("h1 span");
+                const words = ["Explore", "Learn", "Roam", "Experience"];
+        
+               
+                let wordIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
+        
+                const typeEffect = () => {
+                    const currentWord = words[wordIndex];
+                    const currentChar = currentWord.substring(0, charIndex);
+                    dynamicText.textContent = currentChar;
+                    dynamicText.classList.add("stop-blinking");
+        
+                    if (!isDeleting && charIndex < currentWord.length) {
+                        charIndex++;
+                        setTimeout(typeEffect, 200);
+                    } else if (isDeleting && charIndex > 0) {
+                       
+                        charIndex--;
+                        setTimeout(typeEffect, 100);
+                    } else {
+                        isDeleting = !isDeleting;
+                        dynamicText.classList.remove("stop-blinking");
+                        wordIndex = !isDeleting ? (wordIndex + 1) % words.length : wordIndex;
+                        setTimeout(typeEffect, 1200);
+                    }
+                }
+        
+                typeEffect();
+
+            </script>
+
+        </div>
+
+        <div class="signup">
+            <form action="">
+                <h1>Sign Up</h1>
+
+                <h3>Name</h3>
+                <input type="text" name="name" class="inp" id="nameKiId" autocomplete="on" required/>
+
+                <h3>Email Id</h3>
+                <input type="email" name="email" class="inp" id="emailKiId" autocomplete="on" required/>
+
+                <h3>Phone Number</h3>
+                <input type="text" name="phone" class="inp" id="phNoKiId" autocomplete="on" required/>
+
+                <h3>Age</h3>
+                <input type="text" name="age" class="inp" id="ageKiId" autocomplete="on"  required/>
+
+                <h3>Password</h3>
+                <input type="password" name="password" id="passwordKiId" class="inp" autocomplete="on" required/> 
+
+                <h3>Confirm Password</h3>
+                <input type="password" name="cpassword" class="inp" autocomplete="on" required/> 
+
+                <button id="signupKiId">Sign Up</button>
+
+            </form>
+
+            <div class="login">
+                <span id="t1">Already a user?<a href="login.html"> Login here!</a></span>
+            </div>
+            
+        </div>
+    </div>
+
+    <script type="module">
+                import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+                import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+
+                const firebaseConfig = {
+                    apiKey: "AIzaSyAqRr2D3uccqVQXlr3PsyaywlJskzlTPMI",
+                    authDomain: "details-module.firebaseapp.com",
+                    projectId: "details-module",
+                    storageBucket: "details-module.appspot.com",
+                    messagingSenderId: "983417733182",
+                    appId: "1:983417733182:web:3feb4dac5ee99d1179116f",
+                    measurementId: "G-G2E9DRHNWW"
+                };
+
+                const app = initializeApp(firebaseConfig);
+                const db = getDatabase(app);
+
+let form=document.querySelector("form");
+form.addEventListener("submit",(event)=>{
+    let name=event.target.name.value;
+    let email=event.target.email.value;
+    let phone=event.target.phone.value;
+    let age=event.target.age.value;
+    let password=event.target.password.value;
+    let cpassword=event.target.cpassword.value;
+
+    var checkStatus=0;
+
+    if(isNaN(age))
+    {
+        alert("Age should be an integer");
+        checkStatus=1;
+    }
+
+    if(isNaN(phone)||phone.length!=10)
+    {
+        alert("Incorrect Phone Number");
+        checkStatus=1;
+    }
+
+    if(password.length<8)
+    {
+        alert("Password should contain atleast 8 characters");
+        checkStatus=1;
+    }
+
+    if(cpassword!=password)
+    {
+        alert("Please confirm the password again");
+        checkStatus=1;
+    }
+
+    let userData=JSON.parse(localStorage.getItem("userDetails")) ?? [];
+    for(let v of userData)
+    {
+        if(v.email==email||v.phone==phone){
+            checkStatus=1;
+            break;
+        }
+    }
+    if(checkStatus==1)
+    {
+        alert("Email or Phone Already Exists");
+    }
+    else{
+        userData.push({
+            'name':name,
+            'email':email,
+            'phone':phone,
+            'age':age,
+            'password':password
+        })
+        localStorage.setItem("userDetails",JSON.stringify(userData))
+        event.preventDefault();
+        set(ref(db, 'user/' + document.getElementById("nameKiId").value),
+                        {
+                            username: document.getElementById("nameKiId").value,
+                            email: document.getElementById("emailKiId").value,
+                            phone: document.getElementById("phNoKiId").value,
+                            age: document.getElementById("ageKiId").value,
+                            password: document.getElementById("passwordKiId").value
+                        })
+                        .then(() => {
+                            window.location.href = 'port.html';
+                     });
+    }
+})
+    </script>
+
+</body>
+</html>

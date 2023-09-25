@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text To Speech</title>
+    <link rel="stylesheet" href="textspeechrun.css">
+</head>
+<body>
+    <img src="text2speechimg.jpg">
+    <div class="wrapper">
+        <header>TEXT TO SPEECH</header>
+        <form action="#" class="wrapper-form">
+            <div class="row">
+                <label>Enter Text</label>
+                <textarea cols="30" style="resize:none" ></textarea>
+            </div>
+            <div class="row">
+                <label>Select Voice</label>
+                <div class="outer">
+                    <select></select>
+                </div>
+            </div>
+            <button>Convert To Speech</button>
+        </form>
+    </div>
+    <script>
+        const textarea = document.querySelector("textarea"),
+        voiceList = document.querySelector("select"),
+        speechBtn = document.querySelector("button");
+
+        let synth = speechSynthesis,
+        isSpeaking = true;
+
+        function voices(){
+            const voices = synth.getVoices();
+            for(let voice of voices){
+                const option = `<option value="${voice.name}">${voice.name} (${voice.lang})</option>`;
+                voiceList.insertAdjacentHTML("beforeend", option);
+            }
+        }
+        synth.addEventListener("voiceschanged", () => {
+            voices();
+            addHindiOption();
+        });
+
+        function textToSpeech(text){
+            const selectedVoice = voiceList.value;
+            const utterance = new SpeechSynthesisUtterance(text);
+            for(let voice of synth.getVoices()){
+                if(voice.name === selectedVoice){
+                    utterance.voice = voice;
+                    break;
+                }
+            }
+            synth.speak(utterance);
+        }
+
+        speechBtn.addEventListener("click", e =>{
+            e.preventDefault();
+            if(textarea.value !== ""){
+                if(!synth.speaking){
+                    textToSpeech(textarea.value);
+                }
+                if(textarea.value.length > 80){
+                    setInterval(()=>{
+                        if(!synth.speaking && !isSpeaking){
+                            isSpeaking = true;
+                            speechBtn.innerText = "Convert To Speech";
+                        }
+                    }, 500);
+                    if(isSpeaking){
+                        synth.resume();
+                        isSpeaking = false;
+                        speechBtn.innerText = "Pause Speech";
+                    }else{
+                        synth.pause();
+                        isSpeaking = true;
+                        speechBtn.innerText = "Resume Speech";
+                    }
+                }else{
+                    speechBtn.innerText = "Convert To Speech";
+                }
+            }
+        });
+    </script>
+</body>
+</html>

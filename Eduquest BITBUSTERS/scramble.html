@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Scramble Game</title>
+    <link rel="stylesheet" href="scramble.css">
+</head>
+
+<body background="scrambleBg.png">
+    <div class="scrambleContainer">
+        <div class="scrambleNavBar">
+            <h2>Word Scramble</h2>
+            <h3>Score : <span>0</span></h3>
+        </div>
+        <hr>
+        
+        <div class="content">
+            <p class="word"></p>
+            <div class="scramble-details">
+                <p class="hint">Hint: <span></span></p>
+                <p class="time">Time Left: <span><b>30</b>s</span></p>
+            </div>
+            <input type="text" placeholder="Enter a valid word">
+            <div class="buttons">
+                <button class="Refresh-It"><img src="refreshBtn.png" alt="Refresh"></button>
+                <button class="Check-It">Check Word</button>
+            </div>
+        </div>
+    </div>
+    
+
+    <script>
+        const words = [
+                {
+                    word: "photosynthesis",
+                    hint: "The process in which plants make their own food"
+                },
+                {
+                    word: "sunlight",
+                    hint: "necessary for photosynthesis"
+                },
+                {
+                    word: "chlorophyll",
+                    hint: "Green pigment present in the plant"
+                },
+                {
+                    word: "carbondioxide",
+                    hint: "gas inhaled by plants during photosynthesis"
+                },
+                {
+                    word: "oxygen",
+                    hint: "Gas exhaled by plants during photosynthesis"
+                },
+                {
+                    word: "garden",
+                    hint: "Space for planting flowers and plant"
+                },
+                {
+                    word: "green",
+                    hint: "Which plants do photosynthesis"
+                },
+                {
+                    word: "stomata",
+                    hint: "holes in leaves which increase photosynthesis"
+                },
+                {
+                    word: "water",
+                    hint: "Oxygen gas which is released during photosynthesis comes from:-"
+                },
+                {
+                    word: "room",
+                    hint: "most suitable temperature for photosynthesis"
+                },
+                {
+                    word: "chloroplast",
+                    hint: "process of photosynthesis takes place in "
+                },
+                {
+                    word: "glucose",
+                    hint: "Photosynthesis converts carbon di oxide and water into oxygen and "
+                },
+            ]
+
+            let abcdef = 0;
+
+            const questionWord = document.querySelector(".word"),
+                hintText = document.querySelector(".hint span"),
+                inputField = document.querySelector("input"),
+                timeText = document.querySelector(".time b"),
+                newWordBtn = document.querySelector(".Refresh-It"),
+                checkAnsBtn = document.querySelector(".Check-It"),
+                scoreCard = document.querySelector(".scrambleNavBar span");
+
+            let sahiWord, timer;
+
+            const initTimer = maxTime => {
+                clearInterval(timer);
+                timer = setInterval(() => {
+                    if (maxTime > 0) {
+                        maxTime--;
+                        return timeText.innerText = maxTime;
+                    }
+                    clearInterval(timer);
+                    alert(`Time out! ${sahiWord.toLocaleUpperCase()} was the correct word`);
+                    initGame(); 
+                }, 1000);
+            }
+
+
+            const initGame = () => {
+                initTimer(30); 
+                let randomObj = words[Math.floor(Math.random() * words.length)];
+                let wordArray = randomObj.word.split(""); 
+                for (let i = wordArray.length - 1; i > 0; i--) {
+                    let j = Math.floor(Math.random() * (i + 1)); 
+                    [wordArray[i], wordArray[j]] = [wordArray[j], wordArray[i]];
+                }
+                questionWord.innerText = wordArray.join(""); 
+                hintText.innerText = randomObj.hint; 
+                sahiWord = randomObj.word.toLowerCase(); 
+                inputField.value = ""; 
+                inputField.setAttribute("maxlength", sahiWord.length);
+            }
+            initGame();
+
+            const checkWord = () => {
+                let userWord = inputField.value.toLocaleLowerCase(); 
+                if (!userWord) return alert("please enter a word check"); 
+                if (userWord !== sahiWord) return alert(`Oops! ${userWord} is not a correct word`);
+                alert(`congrats! ${userWord.toLocaleUpperCase()} is a correct word`);
+                abcdef = abcdef + 1;
+                scoreCard.innerText = abcdef;
+                initGame();
+            }
+            newWordBtn.addEventListener("click", initGame);
+            checkAnsBtn.addEventListener("click", checkWord);
+    </script>
+</body>
+
+</html>
